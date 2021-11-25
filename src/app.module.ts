@@ -1,11 +1,8 @@
 import { Module } from "@nestjs/common";
-import { AppController } from "./app.controller";
-import { AppService } from "./app.service";
 import { UserController } from "./domain/user/user.controller";
 import { UserService } from "./domain/user/user.service";
 import { UserModule } from "./domain/user/user.module";
 import { TypeOrmModule } from "@nestjs/typeorm";
-import { AuthService } from "./domain/auth/auth.service";
 import { AuthModule } from "./domain/auth/auth.module";
 import { Users } from "./domain/entities/user.entity";
 import { ConfigModule } from "@nestjs/config";
@@ -24,12 +21,11 @@ import { ConfigModule } from "@nestjs/config";
 			database: process.env.DB_DATABASE,
 			entities: [Users],
 			synchronize: true,
-			keepConnectionAlive: true
+			keepConnectionAlive: true,
+			logging: true
 		}),
 		UserModule,
 		AuthModule
-	],
-	controllers: [AppController, UserController],
-	providers: [AppService, UserService, AuthService]
+	]
 })
 export class AppModule {}

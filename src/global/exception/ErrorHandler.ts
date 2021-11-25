@@ -3,8 +3,7 @@ import {
 	BadRequestException,
 	ExceptionFilter,
 	ForbiddenException,
-	NotFoundException,
-	UnauthorizedException
+	NotFoundException
 } from "@nestjs/common";
 import { DuplicatedUserException } from "src/domain/user/exception/DuplicatedUserException";
 import { UnauthorizedUserException } from "src/domain/user/exception/UnauthorizedUserException";
@@ -32,11 +31,6 @@ export class ExceptionHandler implements ExceptionFilter {
 			response
 				.status(status)
 				.json(ErrorResponse.response(ErrorCode.Forbidden));
-		} else if (exception instanceof UnauthorizedException) {
-			const status = exception.getStatus();
-			response
-				.status(status)
-				.json(ErrorResponse.response(ErrorCode.UnAuth));
 		} else if (exception instanceof DuplicatedUserException) {
 			const status = exception.getStatus();
 			response
@@ -52,7 +46,7 @@ export class ExceptionHandler implements ExceptionFilter {
 			console.log(exception);
 			response
 				.status(417)
-				.json(ErrorResponse.response(ErrorCode.NewError));
+				.json(ErrorResponse.response(ErrorCode.NotFound));
 		}
 	}
 }
