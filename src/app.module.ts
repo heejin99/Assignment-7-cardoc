@@ -5,8 +5,9 @@ import { AuthModule } from "./domain/auth/auth.module";
 import { Users } from "./domain/entities/user.entity";
 import { ConfigModule } from "@nestjs/config";
 import { TrimModule } from "./domain/trim/trim.module";
+import { Tires } from "./domain/entities/tires.entity";
 import { Trims } from "./domain/entities/trim.entity";
-import { Owners } from "./domain/entities/owner.entity";
+import { TireModule } from "./domain/tire/tire.module";
 
 @Module({
 	imports: [
@@ -20,14 +21,15 @@ import { Owners } from "./domain/entities/owner.entity";
 			username: process.env.DB_USER,
 			password: process.env.DB_PASSWORD,
 			database: process.env.DB_DATABASE,
-			entities: [Users, Trims],
+			entities: [Users, Trims, Tires],
 			// synchronize: true,
 			keepConnectionAlive: true,
 			logging: true
 		}),
 		UserModule,
 		AuthModule,
-		TrimModule
+		TrimModule,
+		TireModule
 	]
 })
 export class AppModule {}
