@@ -2,12 +2,14 @@ import { BadRequestException, Injectable } from "@nestjs/common";
 import { TrimRepository } from "../trim/trim.repository";
 import { UnauthorizedUserException } from "../user/exception/UnauthorizedUserException";
 import { UserRepository } from "../user/user.repository";
+import { TireRepository } from "./tire.repository";
 
 @Injectable()
 export class TireService {
 	constructor(
 		private trimRepository: TrimRepository,
-		private userRepository: UserRepository
+		private userRepository: UserRepository,
+		private tireRepository: TireRepository
 	) {}
 
 	async getTire(user, trim_id: number) {
@@ -19,6 +21,6 @@ export class TireService {
 		if (!findTire) {
 			throw new BadRequestException();
 		}
-		return await this.trimRepository.getTire(user, trim_id);
+		return await this.tireRepository.getTire(trim_id);
 	}
 }

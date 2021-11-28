@@ -33,4 +33,12 @@ export class TireRepository extends Repository<Tires> {
 		await this.save(frontTire);
 		await this.save(rearTire);
 	}
+
+	async getTire(trim_id: number) {
+		const query = this.createQueryBuilder("tires")
+			.innerJoinAndSelect(Trims, "trims", "trims.trim_id = tires.trim_id")
+			.where("trims.trim_id = :trim_id", { trim_id })
+			.getMany();
+		return query;
+	}
 }
